@@ -1,12 +1,12 @@
 # Datastructure and algorithms
 
+# Task list:
+
+- [ ] TODO: Look up collitsions!
+
 # Assignment 1 – Search in dynamic sets
 
-There are a number of algorithms designed to efficiently search for elements in dynamic sets: binary search trees, multiple approaches to *balancing* them, *hash tables*, and multiple approaches to resolving collisions. 
-
-TODO: Look up collitsions!
-
-Different algorithms are suitable for different situations according to the nature of the processed data, distribution of values, performed operations, etc. In this task, your task is to implement and compare these approaches.
+There are a number of algorithms designed to efficiently search for elements in dynamic sets: binary search trees, multiple approaches to *balancing* them, *hash tables*, and multiple approaches to resolving collisions. Different algorithms are suitable for different situations according to the nature of the processed data, distribution of values, performed operations, etc. In this task, your task is to implement and compare these approaches.
 
 ## The Task
 
@@ -14,11 +14,11 @@ Your task in this assignment is to **implement and then compare 4 implementation
 
 - [ ] **(3 points)** Implementation of a binary search tree (BVS) with any balancing algorithm, e.g. AVL, Red-Black Trees, (2,3) Trees, (2,3,4) Trees, Splay Trees, ...
 
- - **(3 points)** Second implementation of BVS with a different balancing algorithm than in the previous point.
+ - [ ] **(3 points)** Second implementation of BVS with a different balancing algorithm than in the previous point.
 
- - **(3 points)** Implementation of a hash table with collision resolution of your choice. The hash table size adjustment must also be implemented.
+ - [ ] **(3 points)** Implementation of a hash table with collision resolution of your choice. The hash table size adjustment must also be implemented.
 
- - **(3 points)** Second implementation of the hash table with collision resolution in a different way than in the previous point. The hash table size adjustment must also be implemented.
+ - [ ] **(3 points)** Second implementation of the hash table with collision resolution in a different way than in the previous point. The hash table size adjustment must also be implemented.
 
 You can obtain a total of 12 points for the implementations themselves according to the points above. You should upload each implementation in one separate source file (if you want to upload all four, you upload them in four files). It is not allowed to download foreign source code! You must implement at least two of the above implementations for a successful upload. Verify correctness by testing - comparison with other implementations.
 
