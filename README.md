@@ -35,6 +35,8 @@ in the following, we will look into how to implement a binary search tree, we wi
 the first task at hand is to define which components are to be used in order to build such a tree. A tree usually starts with something refered to at the root node which branches out to other nodes, known as child nodes. in a binary tree sujch as the one we will be building, each n ode can maximum comprize of 2 child nodes. but ban have 0 1 or 2 nodes. 
 
 the positioning of the clild nodes are dependant on the vallues of which the nodes comprize. 
+[hobbit-hole][1]
+
 
 source: https://www.geeksforgeeks.org/print-nodes-top-view-binary-tree/
 
@@ -48,6 +50,9 @@ as an example;
 
 
 # Source: 
+
+[1]: <https://en.wikipedia.org/wiki/Hobbit#Lifestyle> "Hobbit lifestyles"
+
 
 https://algorithmtutor.com/Data-Structures/Tree/Binary-Search-Trees/
 
