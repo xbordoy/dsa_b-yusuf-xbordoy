@@ -27,6 +27,15 @@ class BinaryTree:
             self.right.insert(val)
             return
         self.right = BinaryTree(val)
+    
+    def find(self, val):
+        # current value is nothing
+        if self == None:
+            return
+        
+        # New value == Current value
+        if val == self.val:
+            return
 
     def delete(self, val):
         # current value is nothing
@@ -61,16 +70,17 @@ class BinaryTree:
         return self
         
     # Print the tree
-    def PrintTree(self):
+    def print(self):
         if self.left:
-            self.left.PrintTree()
-        print( self.val),
+            self.left.print()
+        print(self.val),
         if self.right:
-            self.right.PrintTree()
+            self.right.print()
 
-nums = [12, 6, 18, 19, 21, 11, 3, 5, 4, 24, 18]
-my_tree = BinaryTree()
-for num in nums:
-    my_tree.insert(num)
+if __name__ == '__main__':
+    nums = [12, 6, 18, 19, 21, 11, 3, 5, 4, 24, 18]
+    my_tree = BinaryTree()
+    for num in nums:
+        my_tree.insert(num)
 
-my_tree.PrintTree()
+    my_tree.print()

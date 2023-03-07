@@ -15,3 +15,17 @@ And finally, it is also required to
 > **submit a program that is used to test and measure the effectiveness of these implementations as a single source file (it contains the main function).**
 
 # 3) Implementation of the AVL Tree
+The AVL-Tree is a "self-balancing" binary search tree, the major difference between a typical binary search tree is that, if we create a tree  from the values [3, 2, 1], we would end up with a highly skewed tree
+```java
+        3
+       /
+      2
+     /
+    1
+```
+whereas in the AVL tree this would result in 
+```java
+      2
+     / \
+    1   3
+```

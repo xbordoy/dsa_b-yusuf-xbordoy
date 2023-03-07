@@ -1,9 +1,4 @@
 # Datastructure and algorithms
-
-# Task list:
-
-- [ ] Look up collitsions!
-
 # Assignment 1 – Search in dynamic sets
 
 There are a number of algorithms designed to efficiently search for elements in dynamic sets: binary search trees, multiple approaches to **balancing** them, **hash tables**, and multiple approaches to resolving **collisions**. Different algorithms are suitable for different situations according to the nature of the processed data, distribution of values, performed operations, etc. In this task, your task is to implement and compare these approaches.
@@ -43,6 +38,16 @@ Tables and graphs with results that compare the performance (**speed**) of indiv
 You can obtain a total of **20 points** at most. The minimum requirement is **8 points**.
 
 > **§ 3)**  The solution of the assignment must be uploaded in **AIS** by the set deadline (delays are allowed only in very serious cases, such as sickness, the decision whether the solution is accepted after deadline is decided by the instructor). One zip archive should be uploaded, which contains individual source code files with implementations, a test file and one documentation file in pdf format.
+
+
+
+
+
+
+
+
+
+
 
 
 # Implementation of a binary search tree
