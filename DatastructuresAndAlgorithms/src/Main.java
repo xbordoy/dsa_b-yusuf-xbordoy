@@ -1,52 +1,4 @@
-# Datastructures and algorithms
-
-# 1) Introduction
-
-In this assignment, we will be implementing, testing and comparing the results from four diffrent types of data structures. The programing language for the implementations will be in python. 
-
-# 2) Objective:
-The primary objective of the task is to: 
- > ***Implement and then compare 4 implementations of data structures in terms of the effectiveness of insert, delete and search operations in different situations***
- 
- Also, In the technical documentation, your task is to 
- > **document all implemented data structures and provide detailed testing scenarios, based on which you have found out in which situations which of these implementations are more effective.**
-
-And finally, it is also required to 
-> **submit a program that is used to test and measure the effectiveness of these implementations as a single source file (it contains the main function).**
-
-# 3) Implementation of the AVL Tree
-Source: 
-- [AVL Tree implementation in Java](https://www.happycoders.eu/algorithms/avl-tree-java/)
-- [AVL Tree](https://www.programiz.com/dsa/avl-tree)
-- [AVL Trees with Implementation in C++, Java, and Python](https://algorithmtutor.com/Data-Structures/Tree/AVL-Trees/)
-
-> *An AVL tree is a balanced binary search tree – that is, a binary search tree in which the heights of the left and right subtrees of each node differ by at most one.
-> After each insert and delete operation, this invariant is verified, and the balance is restored by AVL rotation if necessary.* 
-
-[HappyCoders][1]
-
-## 3.1) Height of an AVL Tree
-> *The height of a (sub) tree indicates how far the root is from the lowest node. Therefore, a (sub) tree that consists of only a root node has a height of 0.*
-
-[HappyCoders][1]
-
-## 3.2) The Balancing Factor
-The balancing factor "BF" of a node, denotes tha there is a difference of heights "H" of the right and left subtree (`node.right` and `node.left`)
-
-> BF(node) = H(node.right) - H(node.left)
-
-the height of a none-existent subtree is -1 (one less than the height of a subtree consisting of only one node)
-
-- If the balance factor is < 0, the node is said to be left-heavy.
-- If the balance factor is > 0, the node is said to be right-heavy.
-- A balance factor of 0 represents a balanced node.
-
-In an AVL tree, the balance factor at each node is -1, 0, or 1.
-
-# 3.2) AVL Tree Implementation in Java
-In our solution, we will be utilizing th source code from [AVL Tree](https://www.programiz.com/dsa/avl-tree). However, 
-
-```java
+// Create node
 class Node {
     int item, height;
     Node left, right;
@@ -56,11 +8,7 @@ class Node {
         height = 1;
     }
 }
-```
-unlike the binary search tree, the we need to keep track of the height for each node, which is why class members include the `height` in addition to the `item`, `left` and `right` 
 
-
-```java
 // Tree class
 class AVLTree {
     Node root;
@@ -240,6 +188,3 @@ class AVLTree {
         tree.printTree(tree.root, "", true);
     }
 }
-```
-
-[1]: https://www.happycoders.eu/algorithms/avl-tree-java/
