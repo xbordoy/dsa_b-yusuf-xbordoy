@@ -5,6 +5,20 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "java",
+            "name": "AVLTreeHelper",
+            "request": "launch",
+            "mainClass": "AVLTreeHelper",
+            "projectName": "dsa_b-yusuf-xbordoy_924e83e6"
+        },
+        {
+            "type": "java",
+            "name": "AVLTree",
+            "request": "launch",
+            "mainClass": "AVLTree",
+            "projectName": "dsa_b-yusuf-xbordoy_924e83e6"
+        },
+        {
             "name": "Python: Current File",
             "type": "python",
             "request": "launch",

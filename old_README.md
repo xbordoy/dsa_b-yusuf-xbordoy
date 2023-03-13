@@ -10,6 +10,12 @@ the second two data structures will be of the `hash table` type, with `collision
 
 # 2) The binary tree
 
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+
 We will in this section have a closer look at the data structure of a general `tree algorithm`, and elaborate on how it is constructed and its functions. and then we will expand uppon the tree by adding two types balancing algorithms and then finally compare the results.
 
 This section is divided up into two parts, where the first part will elaborate more on the theoretical aspects, and the secont part will be focusing more on the coding aspects. 

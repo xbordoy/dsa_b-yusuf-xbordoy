@@ -1,6 +1,7 @@
 # AVL tree implementation in Python
 # source: https://www.programiz.com/dsa/avl-tree
-
+import random
+import time
 import sys
 
 # Create a tree node
@@ -158,9 +159,16 @@ class AVLTree(object):
 
 myTree = AVLTree()
 root = None
-nums = [33, 13, 52, 9, 21, 61, 8, 11]
+
+# nums = [33, 13, 52, 9, 21, 61, 8, 11]
+# Generate n random integers between 1 and 1000
+n = 1000
+nums = [random.randint(1, 1000) for _ in range(n)]
+
+
 for num in nums:
     root = myTree.insert_node(root, num)
+    
 myTree.printHelper(root, "", True)
 key = 13
 root = myTree.delete_node(root, key)
