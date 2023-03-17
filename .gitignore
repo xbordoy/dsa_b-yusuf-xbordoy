@@ -1,2 +1,4 @@
 /.metadata/
 insert_benchmark.csv
+search_benchmark.csv
+delete_benchmark.csv

@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "Main",
+            "projectName": "dsa_b-yusuf-xbordoy_924e83e6"
+        },
+        {
+            "type": "java",
+            "name": "AVLNode",
+            "request": "launch",
+            "mainClass": "AVLNode",
+            "projectName": "dsa_b-yusuf-xbordoy_924e83e6"
+        },
+        {
+            "type": "java",
             "name": "AVLTreeHelper",
             "request": "launch",
             "mainClass": "AVLTreeHelper",
