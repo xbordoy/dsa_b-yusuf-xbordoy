@@ -33,7 +33,7 @@ as we will be directing the source code and elaborating on the different feature
 ```mermaid
 graph TB
         subgraph General Tree
-            A1((1))-->B1((2))
+            A1((A))-->B1((2))
             A1-->C1((3))
             A1-->D1((4))
             B1-->E1((5))
