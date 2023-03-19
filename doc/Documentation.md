@@ -63,177 +63,514 @@ linkReferences: true
 \setcounter{page}{1}
 
 
+# 1) The assignment
+
+## 1.1) AVL Tree
+
+## 1.1.1) Testing:
+ - Is the implementation working?
+ - comparreson of 
+ - performance analasis (Time complexity space)
+
+ 
+ ## 1.1.2) Documentation
+  Background, introduction intro AVL,paytree, redbakck trree, hash tables etc.
+  programing language, which IDE are you using 
+  Technical detail AVL balance collision, com
+
+## 1.1.3) Describe testing
+   - solutiong
+
+   Performance
+    time complexity table / graph
+
+## 1.1.4) conclusion 
+What is my conclusion of my opinion, findings which solution is better in which situation.
+ - References
+ - conclusion 
+
+ submission date - 6th week, 7th wee there will be a presentation. 
+ 
+
 # 1) Introduction
-Data structures and algorithms play a fundamental role in computer science and are essential for solving complex problems efficiently. In this assignment, we will be exploring the topic of `search in dynamic sets`, which involves various algorithms designed to search for elements in dynamic sets.
 
-The main objective of this assignment is to implement and compare four different data structures in terms of their effectiveness in `insert`, `delete`, and `search` operations in different situations. The four data structures include two implementations of `binary search trees (BVS)` with different balancing algorithms, and two implementations of `hash tables` with different collision resolution methods.
+This report represents my findings from 
+> Implement and then compare 4 implementations of data structures in terms of the effectiveness of insert, delete and search operations in different situations.
 
-The assignment requires the implementation of these data structures as separate source files, and the documentation of the implementations, testing scenarios, and the achieved results in a technical documentation file. It is also mandatory to submit a test program that measures the effectiveness of the implemented data structures. **The quality of testing and the processing of results in the documentation will mainly be evaluated**.
+Throughout this paper, i will do my best to take you, the reader on a journey where i will be sheading a light on the execusion of this assignment. 
 
-The technical documentation should contain detailed testing scenarios that identify the most suitable situations for each of the implementations. It should also include tables and graphs that compare the performance (speed) of individual solutions. As the results depend on the implementation of the solution and the test scenarios, it is important to document various different test scenarios to ensure accurate results.
+for this assignment, we will be implementing the datastructures in Java, and we will be utilizing VS Code as the IDE as it appears to be the most dynamic IDE.
 
-In summary, this assignment offers an opportunity to explore and implement various data structures and algorithms in the context of searching in dynamic sets. Through this assignment, students will gain valuable experience in implementing data structures and analyzing their performance.
 
-# 1) Self balancing binary search trees comparison
-Before we move on, let's examine the outcome of implementing this new requirement for balance factor. We argue that by ensuring that the balance factor of a tree is always -1, 0, or 1, we can achieve better Big-O performance for important operations. To understand how this balance condition affects the worst-case tree, we must consider two possibilities: a left-heavy tree and a right-heavy tree. To illustrate this, we can examine trees of heights 0, 1, 2, and 3, and Figure 2 depicts the most imbalanced left-heavy tree that is possible under the new balance factor requirement.
+For this exersice, i decited to use the `AVL-Tree` and the `RedBlack-Tree` datastructures. 
 
-## 1.1) AVL tree
+ - Guaranteed height of $O(log(n))$ for $n$ items
 
-AVL trees are binary search trees that are balanced in terms of height. This implies that the height of an AVL tree is proportional to the logarithm of the number of nodes in the tree `log(n)`. 
+# 2) AVL Tree
 
-> *The height of a (sub) tree indicates how far the root is from the lowest node. Therefore, a (sub) tree that consists of only a root node has a height of 0.*
+## 2.1) Source code for the AVL-Tree
 
-The AVL tree ensures height balance through a specific property, which dictates that the difference between the heights of the left and right subtrees of each node should not exceed one. This balance property is checked and maintained after every `insert` or `delete` operation through AVL `rotate`, which restores balance if needed.
+The datastructures used in this exersise, is a modified version of the solutions develloped by [@AlgotithmTutor-2019]. As good practics and also because of the exersise, we will firstly have ensure that the algorithm is behaving as expected before we look into the debth of its benchmarkings. We will therefor run through the some of the key elements which make up the 
 
-> *The heights of the left and right subtrees differ by at most 1. If hl be the height of the left subtree and hr be the height of the right subtree, then,*
->
-> $$|h_l-h_r|\leq1$$
->
 
-For a tree to qualify as an AVL tree, each of its nodes must adhere to the specified balance property. If this condition is not met by any of the nodes, the tree must be restructured to ensure that the property holds. The following proof aims to demonstrate that the AVL property guarantees that the height of the tree will be proportional to the logarithm of the number of nodes in the tree $\log(n)$.
 
-To illustrate this, let us consider an AVL tree as shown in Figure 1. Let h represent the height of the tree, and Nh denote the number of nodes present in the tree at height h.
-
-![An AVL tree of height h](images/BST_Example_1_small.png)
-
-The sum of the number of nodes in the left and right subtrees, along with the root node, equals the total number of nodes in the tree.
-
-$$N_h=N_{h-1}+N_{h-2}+1$$
-
-The recurrence relation is homogeneous and similar to the one for the Fibonacci numbers. The solution to this recurrence relation is...
-
-$$N_h = {\varphi^h \over \sqrt5}$$
-
-Where $\varphi$ is the golden ratio. If we take the  $log(\varphi)$ on both sides, we get 
-
-$$h={1,44 \log_2(N_h)}$$
-
-This proves that the height of the AVL tree is in the order of $\log(n)$.
-
-## 1.1.1) The Balancing Factor
-The balancing factor $(BF)$ of a node, denotes tha there is a difference of heights $(h)$ between the left $(LS)$ and right subtree $(LS)$ of the node. 
-
-$$BF(x)=h(RS(x))-h(LS(x))$$
-
-in an AVL tree, the balancing factor must be $-1$, $0$ or $1$. if the balancing factor of a node is greater than $1$ (right heavy) or less than -1 (left heavy), the node needs to be rebalanced. Figure 2 shows a tree with a balance factor
-
-![A binary tree with balance factor](images/balancefactorAVL_small.png)
-
-
-## 1.2) AVL tree rotations
-If a node's balance factor exceeds the values of -1 or 1, we execute tree rotations on that particular node to achieve balance within the tree. Such rotations modify the tree's arrangement and ensure its equilibrium. The AVL tree employs four different types of rotations, which are explained below.
-
-### 1.2.1) Left Rotation $(LL)$
-Figure 3 illustrates the left rotation on AVL tree.
-
-![Left Rotation $(LL)$](images/AVLTreeLeftRotation_small.png)
-
-The tree at the left side of Figure 3 is right heavy. To fix this, we must perform a left rotation on node a . This is done in the following steps.
-
- - $b$ becomes the new root
- - $a$ takes ownership of $b$’s child as its right child, or in this case, null
- - $b$ takes ownership of $a$ as its left child.
- 
- In AVL tree, we perform the left rotation $(LL)$ on node x
- when
-
-- Node x is right heavy
-
-
-### 1.2.1) Left Rotation $(RR)$
-Figure 4 illustrates the right rotation.
-
-![Right Rotation (RR)](images/AVLTreeRightRotation_small.png)
-
-We fix the tree on the left side of Figure 4 using following steps.
-
- - $b$ becomes the new root.
- - $c$ takes ownership of $b$’s right child, as its left child. In this case, that value is null.
- - $b$ takes ownership of $c$, as its right child.
-In AVL tree, we perform the right rotation $(RR)$ on node $x$ when
-
- - Node $x$ is left heavy
- - Node $x$’s left subtree is not right heavy
-
-### 1.2.1) Left Rotation $(LR)$
-
-Sometimes a single rotation is not sufficient to balance an unbalanced tree. Consider a tree given in Figure 5.
-
-![An unbalanced tree. Node a is right heavy with BF 2](images/AVLTreeLeftRightRotation1_small.png)
-
-Since node $a$ is right heavy, first thing that comes in mind is to perform the left rotation $(LL)$. Let’s see what happens if we do the left rotation on node a.
-
-![Performing left rotation on the root node](images/AVLTreeLeftRightRotation2_small.png)
-
-As we can see in the figure, the tree after the left rotation is still *un-balanced*. Therefore the single left operation is not effective in this case. To fix this we do the following using two step rotation.
-
- - Perform the *right rotation* on the right subtree. In the above figure, perform the right rotation on node $c$ (NOT $a$).
- - Perform the left rotation on the root node.
-
-This is illustrated in Figure 7 below.
-
-![Illustrating the left-right rotation](images/AVLTreeLeftRightRotation3_small.png)
-
-We perform the left right rotation $(LR)$ on node $x$ when
-
- - Node $x$ is right heavy
- - Node $x$’s right subtree is left heavy
-
-### 1.2.2) Left Rotation $(RL)$
-
-$RL$ rotation is symmetric to $LR$ rotation. In $RL$ rotation, we do the following
-
- - Perform the *left* rotation on the left subtree. 
- - Perform the *right* rotation on the root node. 
- 
- This is illustrated in Figure 8.
-
-![Illustrating the right-left rotation](images/AVLTreeRightLeftRotation_small.png)
-
-We perform the right left rotation $(LR)$ on node $x$ when
-
- - Node $x$ is left heavy
- - Node $x$’s left subtree is right heavy
-
-## 1.3) Operations on AVL tree
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# 3.2) AVL Tree Implementation in Java
-In our solution, we will be utilizing th source code from [AVL Tree](https://www.programiz.com/dsa/avl-tree). However, 
+### 2.1.1) The Node
+Unlike the binary search tree, the AVL tree node comprizes of 5 members instead of only 3 members, this is because in the AVL tree, we will have to maintain information about the parent nodein addition to the child nodes, and also as this is a self-balancing binary search tree, each node will have to maintain information about its balance. 
 
 ```java
+// data structure that represents a node in the tree
 class Node {
-    int item, height;
-    Node left, right;
+	int data; 		// holds the key
+	Node parent; 	// pointer to the parent
+	Node left; 		// pointer to left child
+	Node right; 	// pointer to right child
+	int bf; 		// balance factor of the node
 
-    Node(int d) {
-        item = d;
-        height = 1;
-    }
+	public Node(int data) {
+		this.data = data;
+		this.parent = null;
+		this.left = null;
+		this.right = null;
+		this.bf = 0;
+	}
 }
 ```
-unlike the binary search tree, the we need to keep track of the height for each node, which is why class members include the `height` in addition to the `item`, `left` and `right` 
 
-## 1.2) Red-Black tree
+### 2.1.2) The insert method
+
+ - Ordinary BST insert
+
+```java
+// insert the key to the tree in its appropriate position
+	public void insert(int key) {
+		// PART 1: Ordinary BST insert
+		Node node = new Node(key);
+		Node y = null;
+		Node x = this.root;
+
+		while (x != null) {
+			y = x;
+			if (node.data < x.data) {
+				x = x.left;
+			} else {
+				x = x.right;
+			}
+		}
+
+		// y is parent of x
+		node.parent = y;
+		if (y == null) {
+			root = node;
+		} else if (node.data < y.data) {
+			y.left = node;
+		} else {
+			y.right = node;
+		}
+
+		// PART 2: re-balance the node if necessary
+		updateBalance(node);
+	}
+```
+
+### 2.1.3) Search Method
+
+```java
+private Node searchTreeHelper(Node node, int key) {
+		if (node == null || key == node.data) {
+			return node;
+		}
+
+		if (key < node.data) {
+			return searchTreeHelper(node.left, key);
+		} 
+		return searchTreeHelper(node.right, key);
+	}
+```
+### 2.1.4) Delete Method
+
+```java
+	private Node deleteNodeHelper(Node node, int key) {
+		// search the key
+		if (node == null) return node;
+		else if (key < node.data) node.left = deleteNodeHelper(node.left, key);
+		else if (key > node.data) node.right = deleteNodeHelper(node.right, key);
+		else {
+			// the key has been found, now delete it
+
+			// case 1: node is a leaf node
+			if (node.left == null && node.right == null) {
+				node = null;
+			}
+
+			// case 2: node has only one child
+			else if (node.left == null) {
+				Node temp = node;
+				node = node.right;
+			}
+
+			else if (node.right == null) {
+				Node temp = node;
+				node = node.left;
+			}
+
+			// case 3: has both children
+			else {
+				Node temp = minimum(node.right);
+				node.data = temp.data;
+				node.right = deleteNodeHelper(node.right, temp.data);
+			}
+
+		} 
+```
+
+### 2.1.5) Balancing method
+
+```java
+	// update the balance factor the node
+	private void updateBalance(Node node) {
+		if (node.bf < -1 || node.bf > 1) {
+			rebalance(node);
+			return;
+		}
+
+		if (node.parent != null) {
+			if (node == node.parent.left) {
+				node.parent.bf -= 1;
+			} 
+
+			if (node == node.parent.right) {
+				node.parent.bf += 1;
+			}
+
+			if (node.parent.bf != 0) {
+				updateBalance(node.parent);
+			}
+		}
+	}
+```
+
+## 2.2) Testing the tree functionality
+for the sake of testing the tree, we will be comparing our results with results from [@DavidGalles-2011]. 
+
+### 2.2.1) Testing scenario: Left Rotation
+Input array 
+
+	[10, 15, 20]
+
+the expected outcome according to [@DavidGalles-2011]
+
+![Step 1](images/AVLTree_Example1_step1_small.png)
+![Step 2](images/AVLTree_Example1_step2_small.png)
+![Step 3](images/AVLTree_Example1_step3_small.png)
+![Step 4](images/AVLTree_Example1_step4_small.png) 
 
 
-# References: 
- - https://algorithmtutor.com/Data-Structures/Tree/AVL-Trees/
+Initially, the value 10 is inserted and serves as the root node. Next, the value 15 is inserted and placed as the right child of the root node because it is greater than or equal to 10. The third value, 20, is also greater than the root node value and the right child value of 15, so it becomes the right child of the right child of the root node. Since this insertion causes the tree to become right-heavy and unbalanced, a balancing algorithm is invoked. This algorithm determines the balancing factor, which is given by:
 
- - https://www.cs.usfca.edu/~galles/visualization/AVLtree.html
+$$BF(x) = h(RS(x)) - h(LS(x))$$
+
+where $h(RS(x))$ is the height of the right subtree of node $x$ and $h(LS(x))$ is the height of the left subtree of node $x$. In this case, $h(RS(x))$ is 1 and $h(LS(x))$ is 0, so the balancing factor is 1. To restore balance to the tree, a `left` rotation is performed. After the rotation, the resulting tree is balanced.
+
+```java
+printing Nodes
+R----15(BF = 0)
+     L----10(BF = 0)
+     R----20(BF = 0)
+```
+
+This test concludes that the nodes are correctly positioned. 
+
+
+### 2.2.2) Testing scenario: Right Rotation
+
+Input array 
+
+	[20, 15, 10]
+
+the expected outcome according to [@DavidGalles-2011]
+
+![Step 1](images/AVLTree_Example2_step1_small.png)
+![Step 2](images/AVLTree_Example2_step2_small.png)
+![Step 3](images/AVLTree_Example2_step3_small.png)
+![Step 4](images/AVLTree_Example2_step4_small.png) 
+
+The first value to be inserted is 20, which becomes the root node. The next value inserted is 15, which is less than 20 and is therefore placed as the left child of the root node. The third value inserted is 10, which is also less than 20 and less than the left child of the root node. Consequently, the value 10 becomes the left child of the left child of the root node. As a result, the tree becomes left-heavy and unbalanced, and the balancing algorithm is invoked. To restore balance to the tree, a right rotation is performed. After the rotation, the tree becomes balanced again.
+
+```java
+printing Nodes
+R----15(BF = 0)
+     L----10(BF = 0)
+     R----20(BF = 0)
+```
+This test concludes that the nodes are correctly positioned. 
+### 2.2.3) Testing scenario: Right/Left Rotation
+
+Input array 
+
+	[15, 25, 20]
+
+the expected outcome according to [@DavidGalles-2011]
+
+![Step 1](images/AVLTree_Example3_step1_small.png)
+![Step 2](images/AVLTree_Example3_step2_small.png)
+![Step 3](images/AVLTree_Example3_step3_small.png)
+![Step 4](images/AVLTree_Example3_step4_small.png) 
+
+The first value to be inserted is 15, which becomes the root node. The next value inserted is 25, which is greater than 15 and is therefore placed as the right child of the root node. The third value inserted is 20, which is  greater than 15, but less than the right child of the root node 25. Consequently, the value 20 becomes the left child of the right child of the root node. As a result, the tree becomes right-heavy and unbalanced, and the balancing algorithm is invoked. To restore balance to the tree, a left rotation is performed. After the rotation, the tree becomes balanced again.
+
+```java
+printing Nodes
+R----20(BF = 0)
+     L----15(BF = 0)
+     R----25(BF = 0)
+```
+This test concludes that the nodes are correctly positioned. 
+
+### 2.2.4) Testing scenario: Left/Right Rotation
+
+Input array 
+
+	[25, 15, 20]
+
+the expected outcome according to [@DavidGalles-2011]
+
+![Step 1](images/AVLTree_Example4_step1_small.png)
+![Step 2](images/AVLTree_Example4_step2_small.png)
+![Step 3](images/AVLTree_Example4_step3_small.png)
+![Step 4](images/AVLTree_Example4_step4_small.png) 
+
+The first value to be inserted is 25, which becomes the root node. The next value inserted is 15, which is less than 25 and is therefore placed as the left child of the root node. The third value inserted is 20, which is  less than 25, but greater than the left child of the root node 15. Consequently, the value 20 becomes the right child of the left child of the root node. As a result, the tree becomes left-heavy and unbalanced, and the balancing algorithm is invoked. To restore balance to the tree, a right rotation is performed. After the rotation, the tree becomes balanced again.
+
+```java
+printing Nodes
+R----20(BF = 0)
+     L----15(BF = 0)
+     R----25(BF = 0)
+```
+This test concludes that the nodes are correctly positioned. 
+
+### 2.2.5) More complex tests
+
+Input array 
+
+	[20, 4, 26, 3, 9, 15]
+
+the expected outcome according to [@DavidGalles-2011]
+
+![Step 1](images/AVLTree_Example5_step1_small.png)
+![Step 2](images/AVLTree_Example5_step2_small.png)
+![Step 3](images/AVLTree_Example5_step3_small.png)
+![Step 4](images/AVLTree_Example5_step4_small.png) 
+![Step 4](images/AVLTree_Example5_step5_small.png)
+![Step 4](images/AVLTree_Example5_step6_small.png)
+
+when entering these values into our AVL-tree, the the result is 
+
+```java
+printing Nodes
+R----9(BF = 0)
+     L----4(BF = -1)
+     |    L----3(BF = 0)
+     R----20(BF = 0)
+          L----15(BF = 0)
+          R----26(BF = 0)
+```
+This test concludes that the nodes are correctly positioned. 
+
+other similar tests have been performed with larger tree structures, and they all yealded in the same result
+
+the following is a quick overview
+
+input array [20, 4, 26, 3, 9, 21, 30, 2, 7, 11, 8]
+
+![](images/AVLTree_Example6_small.png)
+
+```java
+printing Nodes
+R----9(BF = 0)
+     L----4(BF = 0)
+     |    L----3(BF = -1)
+     |    |    L----2(BF = 0)
+     |    R----7(BF = 1)
+     |         R----8(BF = 0)
+     R----20(BF = 1)
+          L----11(BF = 0)
+          R----26(BF = 0)
+               L----21(BF = 0)
+               R----30(BF = 0)
+```
+
+This test concludes that the nodes are correctly positioned. 
+
+
+## 2.2) Benchmark testing
+in the following tests, we will perform two sets of tests, where the first set of test comprizes of 100K randomply generated values and then another test with 10M randomly generated values. These values will then be used to perform a sort of benchmark test on the three methods `insert`, `search` and `delete`, while measuring the time duration for each operation and then plot these values in order to see the performance of the operations.
+
+It should be noted, that when running n operations without measuring and logging the time, is significant faster than with the measuremens. This leads me to believe that the results from the following tests are distorted by the fact that we are measuring them. but for the sake of this assignment, these tests are deamed to suffice as they do show a pattern. 
+
+![Big $O$ Notation](images/Big%20O%20Notation.png)
+
+
+
+### 2.2.1) Script used for the test
+
+the script used for the three tests are more or less identical, the only diffrence between them is invoking the `insert`, `search` and `delete` methods.
+
+```java
+private static void insert_benchmark(int numInserts) {
+	long startTime, endTime, elapsedTime;
+	Random random = new Random();
+	try {
+		FileWriter writer = new FileWriter(InsertBenchmarkCSV);
+
+		writer.append("Number of Inserts");
+		writer.append(",");
+		writer.append("Elapsed Time (ms)");
+		writer.append("\n");
+
+		// perform insert operations and measure time taken
+		startTime = System.nanoTime();
+		for (int i = 0; i < numInserts; i++) {
+			int value = random.nextInt();
+
+			// The Insert operation
+			avlTree.insert(value);
+
+			elapsedTime = (System.nanoTime() - startTime) / 1000000;
+
+			writer.append(Integer.toString(i));
+			writer.append(",");
+			writer.append(Long.toString(elapsedTime));
+			writer.append("\n");
+		}
+
+		writer.flush();
+		writer.close();
+	} catch (IOException e) {
+		e.printStackTrace();
+	}
+}
+```
+
+### 2.2.1) 1M insert operations
+
+For this test, we randomly generated 1M values and `inserted` them into the tree while measuring the time it took for each operation.
+
+
+![insert benchmark](images/AVLTree_insert_benchmark_100K_small.png)
+
+![insert benchmark](images/AVLTree_insert_benchmark_10M_small.png)
+
+as indicated by the figure, the `insert` operations time complexity increases exponentially. this expression can also be expressed as $O(n^2)$.  however, it should also be noted that tinning this same test with less number of inserts, the graph actually follows a $O(log(n))$
+
+### 2.2.2) 1M search operations
+
+
+![search_benchmark](images/AVLTree_search_benchmark_100K_small.png)
+
+![search_benchmark](images/AVLTree_search_benchmark_10M_small.png)
+
+
+### 2.2.3) 1M delete operations
+
+
+
+![delete_benchmark](images/AVLTree_delete_benchmark_100K_small.png)
+
+
+![delete_benchmark](images/AVLTree_delete_benchmark_10M_small.png)
+
+# 3) Red-Black tree
+The Red-Black tree is also a datastructure which is derrivedfrom the binary search tree structure. It is a self balancing tree where each node carries infomration related to its color, (Red/Black). These colors are used as means to balance the tree after `insert` or `remove` of elements. 
+
+Features: 
+ 1. A node is either red or black.
+ 2. The root and leaves (NIL) are black.
+ 3. If a node is red, then its children are black.
+ 4. All paths from a node to its (NIL) desendants contain the same number of black nodes
+
+![Alt text](images/RBTreeExample.png)
+
+Time complexity:
+ - Search $O(log(n))$
+ - Insert $O(log(n))$
+ - Remove $O(log(n))$
+
+ Space complexity: $O(n)$
+
+## 3.1) Source code for the Red-Black Tree
+
+### 3.1.1) The Node
+
+### 3.1.2) The insert method
+
+### 3.1.2) The search method
+
+### 3.1.2) The delete method
+
+### 3.1.2) The balancing method
+
+## 3.2 Testing the tree functionality
+
+### 3.2.1) Testing scenarion Lefft rotation
+
+### 3.2.2) Testing scenarion Right rotation
+
+### 3.2.3) Testing scenarion Lefft/Right rotation
+
+### 3.2.4) Testing scenarion Right/Lefft rotation
+
+### 3.2.5) Mpre complex tests
+
+## 3.3) Benchmark testing
+
+### 3.3.1) scripts used for the test
+
+### 3.3.2) Testing insert operation
+
+![insert benchmark](images/RedBlack_insert_benchmark_100K_small.png)
+
+![insert benchmark](images/RedBlack_insert_benchmark_10M_small.png)
+
+### 3.3.2) Testing search operation
+
+![search_benchmark](images/RedBlack_insert_benchmark_100K_small.png)
+
+![search_benchmark](images/RedBlack_insert_benchmark_10M_small.png)
+
+### 3.3.2) Testing delete operation
+
+
+![delete_benchmark](images/RedBlack_delete_benchmark_100K_small.png)
+
+![delete_benchmark](images/RedBlack_delete_benchmark_10M_small.png)
+
+
+# 4) Cross comparrison, AVL VS Red-Black trees
+
+## 4.1 Pro and con
+AVL 						| RedBlack
+--- 						| ---
+Are strictly balanced 		| may not remain balanced at all time
+additional rotations need compared to RedBlack trees | faster in terms of inserting and deleting
+hence the isert and delete operations will execute slightly slower | general-purpose trees
+--- | are used in Java official implementation of TreeMap and TreeSet
+
+
+## 4.2) Operations
+
+The following is an overview of the time and space complexity of Red-Black Tree operations:
+
+| OPERATION 	| AVERAGE CASE 		| WORST CASE 	|
+| --- 			| ---				| --- 			|
+| Space			| $O(n)$			| $O(n)			|
+| Search		| $O(log(n))$		| $O(log(n))$	|
+| Insert		| $O(log(n))$		| $O(log(n))$	|
+| Delete		| $O(log(n))$		| $O(log)(n))$ 	|
+
+## 4.3) Rebalancing
+
+# 5) Hashing
+In this analysis, we will compare the performance of two different data structures: hash tables and self-balancing binary search trees. Hash tables are a popular data structure used in computer science to associate keys with values, and they support search and insert operations. With a good hash function, hash tables can provide lookups with a constant time of O(1) in the average case, making them ideal for storing large amounts of data. However, choosing a poor hash function can result in slow searches. To avoid collisions, we can use techniques such as chaining or linear hashing. In this analysis, we will compare the performance of these two techniques by implementing them in our own code and comparing their speed and efficiency.
+
+# 5) References: 

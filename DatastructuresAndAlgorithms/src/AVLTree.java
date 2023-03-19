@@ -1,15 +1,24 @@
+// Helper class to run the AVL code
+import java.util.Random;
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
 // AVL Binary search tree implementation in Java
-// Author: AlgorithmTutor
+// Source: 
 
 // data structure that represents a node in the tree
-class Node {
+class AVLNode {
 	int data; // holds the key
-	Node parent; // pointer to the parent
-	Node left; // pointer to left child
-	Node right; // pointer to right child
+	AVLNode parent; // pointer to the parent
+	AVLNode left; // pointer to left child
+	AVLNode right; // pointer to right child
 	int bf; // balance factor of the node
 
-	public Node(int data) {
+	public AVLNode(int data) {
 		this.data = data;
 		this.parent = null;
 		this.left = null;
@@ -19,13 +28,21 @@ class Node {
 }
 
 public class AVLTree {
-	private Node root;
+    private static final String InsertBenchmarkCSV = "insert_benchmark.csv";
+    private static final String SearchBenchmarkCSV = "search_benchmark.csv";
+    private static final String DeleteBenchmarkCSV = "delete_benchmark.csv";
+    
+    static Scanner scanner = new Scanner(System.in);
+    static AVLTree avlTree = new AVLTree();
+
+
+	private AVLNode root;
 
 	public AVLTree() {
 		root = null;
 	}
 
-	private void printHelper(Node currPtr, String indent, boolean last) {
+	private void printHelper(AVLNode currPtr, String indent, boolean last) {
 		// print the tree structure on the screen
 	   	if (currPtr != null) {
 		   System.out.print(indent);
@@ -44,7 +61,7 @@ public class AVLTree {
 		}
 	}
 
-	private Node searchTreeHelper(Node node, int key) {
+	private AVLNode searchTreeHelper(AVLNode node, int key) {
 		if (node == null || key == node.data) {
 			return node;
 		}
@@ -55,7 +72,7 @@ public class AVLTree {
 		return searchTreeHelper(node.right, key);
 	}
 
-	private Node deleteNodeHelper(Node node, int key) {
+	private AVLNode deleteNodeHelper(AVLNode node, int key) {
 		// search the key
 		if (node == null) return node;
 		else if (key < node.data) node.left = deleteNodeHelper(node.left, key);
@@ -70,18 +87,18 @@ public class AVLTree {
 
 			// case 2: node has only one child
 			else if (node.left == null) {
-				Node temp = node;
+				AVLNode temp = node;
 				node = node.right;
 			}
 
 			else if (node.right == null) {
-				Node temp = node;
+				AVLNode temp = node;
 				node = node.left;
 			}
 
 			// case 3: has both children
 			else {
-				Node temp = minimum(node.right);
+				AVLNode temp = minimum(node.right);
 				node.data = temp.data;
 				node.right = deleteNodeHelper(node.right, temp.data);
 			}
@@ -95,7 +112,7 @@ public class AVLTree {
 	}
 
 	// update the balance factor the node
-	private void updateBalance(Node node) {
+	private void updateBalance(AVLNode node) {
 		if (node.bf < -1 || node.bf > 1) {
 			rebalance(node);
 			return;
@@ -117,7 +134,7 @@ public class AVLTree {
 	}
 
 	// rebalance the tree
-	void rebalance(Node node) {
+	void rebalance(AVLNode node) {
 		if (node.bf > 0) {
 			if (node.right.bf < 0) {
 				rightRotate(node.right);
@@ -136,7 +153,7 @@ public class AVLTree {
 	}
 
 
-	private void preOrderHelper(Node node) {
+	private void preOrderHelper(AVLNode node) {
 		if (node != null) {
 			System.out.print(node.data + " ");
 			preOrderHelper(node.left);
@@ -144,7 +161,7 @@ public class AVLTree {
 		} 
 	}
 
-	private void inOrderHelper(Node node) {
+	private void inOrderHelper(AVLNode node) {
 		if (node != null) {
 			inOrderHelper(node.left);
 			System.out.print(node.data + " ");
@@ -152,7 +169,7 @@ public class AVLTree {
 		} 
 	}
 
-	private void postOrderHelper(Node node) {
+	private void postOrderHelper(AVLNode node) {
 		if (node != null) {
 			postOrderHelper(node.left);
 			postOrderHelper(node.right);
@@ -180,12 +197,12 @@ public class AVLTree {
 
 	// search the tree for the key k
 	// and return the corresponding node
-	public Node searchTree(int k) {
+	public AVLNode searchTree(int k) {
 		return searchTreeHelper(this.root, k);
 	}
 
 	// find the node with the minimum key
-	public Node minimum(Node node) {
+	public AVLNode minimum(AVLNode node) {
 		while (node.left != null) {
 			node = node.left;
 		}
@@ -193,7 +210,7 @@ public class AVLTree {
 	}
 
 	// find the node with the maximum key
-	public Node maximum(Node node) {
+	public AVLNode maximum(AVLNode node) {
 		while (node.right != null) {
 			node = node.right;
 		}
@@ -201,7 +218,7 @@ public class AVLTree {
 	}
 
 	// find the successor of a given node
-	public Node successor(Node x) {
+	public AVLNode successor(AVLNode x) {
 		// if the right subtree is not null,
 		// the successor is the leftmost node in the
 		// right subtree
@@ -211,7 +228,7 @@ public class AVLTree {
 
 		// else it is the lowest ancestor of x whose
 		// left child is also an ancestor of x.
-		Node y = x.parent;
+		AVLNode y = x.parent;
 		while (y != null && x == y.right) {
 			x = y;
 			y = y.parent;
@@ -220,7 +237,7 @@ public class AVLTree {
 	}
 
 	// find the predecessor of a given node
-	public Node predecessor(Node x) {
+	public AVLNode predecessor(AVLNode x) {
 		// if the left subtree is not null,
 		// the predecessor is the rightmost node in the 
 		// left subtree
@@ -228,7 +245,7 @@ public class AVLTree {
 			return maximum(x.left);
 		}
 
-		Node y = x.parent;
+		AVLNode y = x.parent;
 		while (y != null && x == y.left) {
 			x = y;
 			y = y.parent;
@@ -238,8 +255,8 @@ public class AVLTree {
 	}
 
 	// rotate left at node x
-	void leftRotate(Node x) {
-		Node y = x.right;
+	void leftRotate(AVLNode x) {
+		AVLNode y = x.right;
 		x.right = y.left;
 		if (y.left != null) {
 			y.left.parent = x;
@@ -261,8 +278,8 @@ public class AVLTree {
 	}
 
 	// rotate right at node x
-	void rightRotate(Node x) {
-		Node y = x.left;
+	void rightRotate(AVLNode x) {
+		AVLNode y = x.left;
 		x.left = y.right;
 		if (y.right != null) {
 			y.right.parent = x;
@@ -287,9 +304,9 @@ public class AVLTree {
 	// insert the key to the tree in its appropriate position
 	public void insert(int key) {
 		// PART 1: Ordinary BST insert
-		Node node = new Node(key);
-		Node y = null;
-		Node x = this.root;
+		AVLNode node = new AVLNode(key);
+		AVLNode y = null;
+		AVLNode x = this.root;
 
 		while (x != null) {
 			y = x;
@@ -315,7 +332,7 @@ public class AVLTree {
 	}
 
 	// delete the node from the tree
-	Node deleteNode(int data) {
+	AVLNode deleteNode(int data) {
 		return deleteNodeHelper(this.root, data);
 	}
 
@@ -324,16 +341,205 @@ public class AVLTree {
 		printHelper(this.root, "", true);
 	}
 
-	public static void main(String [] args) {
-		AVLTree bst = new AVLTree();
-    	bst.insert(1);
-    	bst.insert(2);
-    	bst.insert(3);
-    	bst.insert(4);
-    	bst.insert(5);
-    	bst.insert(6);
-    	bst.insert(7);
-    	bst.insert(8);
-    	bst.prettyPrint();
-	}
+	/**
+     *
+     * @return
+     */
+    public int countNodes() {
+        return countNodes(root);
+    }
+
+    /**
+     *
+     * @param node
+     * @return
+     */
+    private int countNodes(AVLNode node) {
+        if (node == null)
+            return 0;
+        else {
+            int l = 1;
+            l += countNodes(node.left);
+            l += countNodes(node.right);
+            return l;
+        }
+    }
+
+
+
+
+    public static void main(String[] args) {
+        char ch;
+        do {
+            System.out.println("\nAVLTree Operations\n");
+            System.out.println("1. insert ");
+            System.out.println("2. insert_benchmark");
+            System.out.println("3. search");
+            System.out.println("4. search_benchmark");
+            System.out.println("5. delete_benchmark");
+            System.out.println("6. count nodes");
+			System.out.println("7. prettyPrint");
+            int choice = scanner.nextInt();
+            switch (choice) {
+                case 1:
+                    System.out.println("Enter integer element to insert");
+                    avlTree.insert(scanner.nextInt());
+                    break;
+                
+                case 2:
+                    System.out.println("Enter integer element to insert");
+                    insert_benchmark(scanner.nextInt());
+                    break;
+
+                case 3:
+                    System.out.println("Enter integer element to search");
+                    System.out.println("Search result : " + avlTree.searchTree(scanner.nextInt()));
+                    break;
+
+                case 4:
+                    System.out.println("Enter integer element to insert");
+                    search_benchmark(scanner.nextInt());
+                    break;
+
+                case 5:
+                    System.out.println("Enter integer element to insert");
+                    delete_benchmark(scanner.nextInt());
+                    break;
+
+                case 6:
+                    System.out.println("Nodes = " + avlTree.countNodes());
+                    break;
+				
+				case 7:
+                    System.out.println("printing Nodes");
+					avlTree.prettyPrint();
+                    break;
+					
+                default:
+                    System.out.println("Wrong Entry \n ");
+                    break;
+            }
+
+            System.out.print("\nIn order : ");
+            avlTree.inorder();
+
+            System.out.println("\nDo you want to continue (Type y or n) \n");
+            ch = scanner.next().charAt(0);
+        } while (ch == 'Y' || ch == 'y');
+    }
+
+    /**
+     * @param js
+     * @param numInserts
+     */
+    private static void search_benchmark(int numSearches) {
+        long startTime, elapsedTime;
+        Random random = new Random();
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        try {
+            FileWriter writer = new FileWriter(SearchBenchmarkCSV);
+
+            writer.append("Number of Inserts");
+            writer.append(",");
+            writer.append("Elapsed Time (ms)");
+            writer.append("\n");
+
+            // perform insert operations and measure time taken
+            startTime = System.nanoTime();
+            for (int i = 0; i < numSearches; i++) {
+                int value = random.nextInt();
+                avlTree.searchTree(value);
+
+
+                elapsedTime = (System.nanoTime() - startTime) / 1000000;
+
+                writer.append(Integer.toString(i));
+                writer.append(",");
+                writer.append(Long.toString(elapsedTime));
+                writer.append("\n");
+
+                // print results
+                //System.out.println("Time taken for " + value + " insert operations: " + elapsedTime + " nanoseconds");
+            }
+
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void insert_benchmark(int numInserts) {
+        long startTime, endTime, elapsedTime;
+        Random random = new Random();
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        try {
+            FileWriter writer = new FileWriter(InsertBenchmarkCSV);
+
+            writer.append("Number of Inserts");
+            writer.append(",");
+            writer.append("Elapsed Time (ms)");
+            writer.append("\n");
+
+            // perform insert operations and measure time taken
+            startTime = System.nanoTime();
+            for (int i = 0; i < numInserts; i++) {
+                int value = random.nextInt();
+                avlTree.insert(value);
+
+                elapsedTime = (System.nanoTime() - startTime) / 1000000;
+
+                writer.append(Integer.toString(i));
+                writer.append(",");
+                writer.append(Long.toString(elapsedTime));
+                writer.append("\n");
+
+                // print results
+                //System.out.println("Time taken for " + value + " insert operations: " + elapsedTime + " nanoseconds");
+            }
+
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void delete_benchmark(int numInserts) {
+        long startTime, endTime, elapsedTime;
+        Random random = new Random();
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        try {
+            FileWriter writer = new FileWriter(DeleteBenchmarkCSV);
+
+            writer.append("Number of Inserts");
+            writer.append(",");
+            writer.append("Elapsed Time (ms)");
+            writer.append("\n");
+
+            // perform insert operations and measure time taken
+            startTime = System.nanoTime();
+            for (int i = 0; i < numInserts; i++) {
+                int value = random.nextInt();
+                avlTree.deleteNode(value);
+
+                elapsedTime = (System.nanoTime() - startTime) / 1000000;
+
+                writer.append(Integer.toString(i));
+                writer.append(",");
+                writer.append(Long.toString(elapsedTime));
+                writer.append("\n");
+
+                // print results
+                //System.out.println("Time taken for " + value + " insert operations: " + elapsedTime + " nanoseconds");
+            }
+
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
+

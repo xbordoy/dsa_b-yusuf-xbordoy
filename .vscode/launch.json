@@ -6,6 +6,27 @@
     "configurations": [
         {
             "type": "java",
+            "name": "RedBlackTree",
+            "request": "launch",
+            "mainClass": "RedBlackTree",
+            "projectName": "DatastructuresAndAlgorithms"
+        },
+        {
+            "type": "java",
+            "name": "RedBlackTree",
+            "request": "launch",
+            "mainClass": "RedBlackTree",
+            "projectName": "dsa_b-yusuf-xbordoy_924e83e6"
+        },
+        {
+            "type": "java",
+            "name": "Old_AVL_Tree",
+            "request": "launch",
+            "mainClass": "Old_AVL_Tree",
+            "projectName": "dsa_b-yusuf-xbordoy_924e83e6"
+        },
+        {
+            "type": "java",
             "name": "AVL_Tree",
             "request": "launch",
             "mainClass": "AVL_Tree",
