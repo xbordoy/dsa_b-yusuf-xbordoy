@@ -6,6 +6,55 @@
     "configurations": [
         {
             "type": "java",
+            "name": "HashTable",
+            "request": "launch",
+            "mainClass": "HashTable",
+            "projectName": "DatastructuresAndAlgorithms"
+        },
+        {
+            "type": "java",
+            "name": "HashTableTester",
+            "request": "launch",
+            "mainClass": "HashTableTester",
+            "projectName": "DatastructuresAndAlgorithms"
+        },
+        {
+            "type": "java",
+            "name": "BSTreeTester",
+            "request": "launch",
+            "mainClass": "BSTreeTester",
+            "projectName": "DatastructuresAndAlgorithms"
+        },
+        {
+            "type": "java",
+            "name": "AVLTreeTester",
+            "request": "launch",
+            "mainClass": "AVLTreeTester",
+            "projectName": "DatastructuresAndAlgorithms"
+        },
+        {
+            "type": "java",
+            "name": "RedBlackTreeTester",
+            "request": "launch",
+            "mainClass": "RedBlackTreeTester",
+            "projectName": "DatastructuresAndAlgorithms"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "Main",
+            "projectName": "DatastructuresAndAlgorithms"
+        },
+        {
+            "type": "java",
+            "name": "AVLTree",
+            "request": "launch",
+            "mainClass": "AVLTree",
+            "projectName": "DatastructuresAndAlgorithms"
+        },
+        {
+            "type": "java",
             "name": "RedBlackTree",
             "request": "launch",
             "mainClass": "RedBlackTree",

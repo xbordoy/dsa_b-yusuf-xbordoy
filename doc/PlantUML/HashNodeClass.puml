@@ -1,0 +1,13 @@
+@startuml
+class HashNode {
+ Integer key
+ String value
+ HashNode next
+ 
+ size()
+ isEmphty()
+ get()
+ put()
+ remove()
+}
+@enduml

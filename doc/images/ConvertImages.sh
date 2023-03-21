@@ -7,6 +7,6 @@ do
         rm $f
     else
         echo "processing $f"
-        convert "$f" -resize 80% -sharpen 0x2 "${f%.*}_small.${f##*.}"
+        convert "$f" -resize 75% -quality 100 "${f%.*}_small.${f##*.}"
     fi
 done
