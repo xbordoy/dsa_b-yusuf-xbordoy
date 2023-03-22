@@ -908,6 +908,7 @@ private static void insert_benchmark(int[] arr, String fileName) {
 
 
 # 4) Hash table
+
 in this section we will be looking into hash table datastructures and two diffrent approaches to collosion resolution. 
 
 Problem:
@@ -1162,14 +1163,20 @@ public String remove(Integer key){
 
 
 # 5) Comparison between the algorithms
+In the following three figures, we will comparing the results from each algorithm. the tree figures corospond to the `insert`, `search` and `delete` operations, where we have measured the time for each operation, for 10.000.000 operations. 
 
-## 5.1) AVL Tree vs Red-Black tree
+![Comparisson of the insert function between the diffrent algorithms](images/AVLvsRedBlackvsHashTable_Insert_AvgWc.png)
+
+as indicated by Figure 10, both the AVL- and RedBlack trees appear to follow a very similar pattern, while the Hash Table appears to be much more effective. 
+
+![Comparisson of the insert function between the diffrent algorithms](images/AVLvsRedBlackvsHashTable_Search_AvgWc.png)
 
 
-![Alt text](images/AVLvsRedBlack_insert.png)
+as indicated by Figure 11, both the AVL- and RedBlack trees appear to follow a very similar pattern, while the Hash Table appears to be much more effective. 
 
-![Alt text](images/AVLvsRedBlack_search.png)
+![Comparisson of the insert function between the diffrent algorithms](images/AVLvsRedBlackvsHashTable_Delete_AvgWc.png)
 
-![Alt text](images/AVLvsRedBlack_delete.png)
+
+as indicated by Figure 12, both the AVL- and RedBlack trees appear to follow a very similar pattern, while the Hash Table appears to be much more effective. 
 
 # 6) References: 
